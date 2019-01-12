@@ -9,7 +9,7 @@ class Solver(val dictionary: Dictionary, val minimumLength: Int = 3, val maximum
         for (i in boggle.indices) {
             for(j in boggle[i].indices) {
                 val visited = Array(board.boardWidth) { Array(board.boardWidth) { false } }
-                findWords(0, board, boggle, visited, dictionary, i, j, "")
+                findWords(0, board, boggle, 0, dictionary, i, j, "")
             }
         }
     }
@@ -18,15 +18,14 @@ class Solver(val dictionary: Dictionary, val minimumLength: Int = 3, val maximum
     private fun findWords(depth: Int,
                           board:Board,
                           boggle: Array<Array<String>>,
-                          visited: Array<Array<Boolean>>,
+                          visited: Int,
                           dictionary: Dictionary,
                           x: Int,
                           y: Int,
                           str: String): Unit {
 
         if(x >= 0 && x < board.boardWidth && y >= 0 && y < board.boardWidth) {
-            val vs = visited.joinToString { e -> e.joinToString(" ") }
-            println("Checking $depth $x $y ${boggle[x][y]} $str $vs")
+            println("Checking $depth $x $y ${boggle[x][y]} $str ${Integer.toBinaryString(visited).padStart(board.boardWidth * board.boardWidth, '0')}")
         }
 
         if (plausible(board, x, y, visited) && str.length <= maximumLength) {
@@ -37,7 +36,7 @@ class Solver(val dictionary: Dictionary, val minimumLength: Int = 3, val maximum
             if (legal(soFar) && dictionary.words.contains(soFar)) {
                 results.add(soFar)
             }
-            
+
             // up
             findWords(depth + 1, board, boggle, visit(visited, x, y), dictionary, x - 1, y, soFar)
             // down
@@ -61,8 +60,17 @@ class Solver(val dictionary: Dictionary, val minimumLength: Int = 3, val maximum
      * If x and y are within the bounds of the board and we haven't visited
      * that coordinate yet
      */
-    private fun plausible(board: Board, x: Int, y: Int, visited: Array<Array<Boolean>>): Boolean {
-        return x >= 0 && x < board.boardWidth && y >= 0 && y < board.boardWidth && !visited[x][y]
+    private fun plausible(board: Board, x: Int, y: Int, visited:Int): Boolean {
+        return x >= 0 && x < board.boardWidth && y >= 0 && y < board.boardWidth && !wasVisited(visited, x, y)
+    }
+
+    private fun wasVisited(visited: Int, x: Int, y: Int): Boolean {
+        val flag = visitedBit(x, y)
+        return (visited and flag) > 0
+    }
+
+    private fun visitedBit(x: Int, y: Int): Int {
+        return (1 shl (x * 4)) shl y
     }
 
     private fun legal(str: String): Boolean {
@@ -78,9 +86,7 @@ class Solver(val dictionary: Dictionary, val minimumLength: Int = 3, val maximum
         return b
     }
 
-    private fun visit(visited: Array<Array<Boolean>>, x: Int, y: Int): Array<Array<Boolean>> {
-        val v = Array(visited.size) { visited[it].copyOf()}
-        v[x][y] = true
-        return v
+    private fun visit(visited: Int, x: Int, y: Int): Int {
+        return visited or visitedBit(x, y)
     }
 }

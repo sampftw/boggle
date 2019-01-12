@@ -2,10 +2,11 @@ package boggle
 
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class SolverTest {
 
-    //@Test
+    @Test
     fun solve() {
         val b = Board("abcd efgh ijkl mnop")
         val dictionary = SimpleDictionary(listOf("abc", "aei", "xyz"))
@@ -31,5 +32,4 @@ class SolverTest {
         solver.solve(b)
         assertEquals(setOf("ab", "ac"), solver.results)
     }
-
 }
