@@ -16,7 +16,7 @@ class ClasspathDictionary(val sourceFile: String) : Dictionary() {
     override val words: List<String>
 
     init {
-        val resource = ClassLoader.getSystemResource("dictionaries/test.txt")
+        val resource = ClassLoader.getSystemResource(sourceFile)
         if (resource == null) {
             throw RuntimeException("Unable to load dictionary.")
         }
