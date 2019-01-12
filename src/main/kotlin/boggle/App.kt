@@ -17,6 +17,10 @@ fun Application.main() {
     install(FreeMarker) {
         templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
     }
+    val dictionaryName = environment.config.property("dictionary.name")
+    val dictionary: Dictionary = ClasspathDictionary("dictionaries/${dictionaryName}")
+
+
     install(DefaultHeaders)
     install(CallLogging)
     install(Routing) {
@@ -35,11 +39,14 @@ fun Application.main() {
 
         post( "/solve") {
             val post = call.receiveParameters()
-            val board = post["board"]
-            if (board?.length != 16) {
-                call.respond(FreeMarkerContent("index.ftl", mapOf("error" to "Invalid board")))
-            } else {
-                call.respond(FreeMarkerContent("solved.ftl", mapOf("board" to Board(board))))
+            try {
+                val board = Board(post["board"])
+                val solver = Solver(dictionary)
+                solver.solve(board)
+                val answers = solver.results
+                call.respond(FreeMarkerContent("solved.ftl", mapOf("board" to board, "answers" to answers)))
+            } catch (e: Exception) {
+                call.respond(FreeMarkerContent("index.ftl", mapOf("error" to e.message)))
             }
         }
     }
