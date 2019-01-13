@@ -5,7 +5,7 @@ This is a standalone webapp for solving [boggle](https://en.wikipedia.org/wiki/B
 
 Running
 -------
-Project is written in kotlin and build with gradle. To run:
+Project is written in kotlin and built with gradle. To run:
 ```
 $ ./gradlew run
 ```
