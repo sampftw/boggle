@@ -20,7 +20,7 @@ fun Application.main() {
         templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
     }
     val dictionaryName = environment.config.property("dictionary.name")
-    val dictionary: Dictionary = ClasspathDictionary("dictionaries/${dictionaryName}")
+    val dictionary: Dictionary = ClasspathDictionary(dictionaryName.getString())
 
 
     install(DefaultHeaders)
@@ -45,7 +45,7 @@ fun Application.main() {
                 val board = Board(post["board"])
                 val solver = NaiveSolver(dictionary)
                 solver.solve(board)
-                val answers = solver.results
+                val answers = solver.results.sorted()
                 call.respond(FreeMarkerContent("solved.ftl", mapOf("board" to board, "answers" to answers)))
             } catch (e: Exception) {
                 call.respond(FreeMarkerContent("index.ftl", mapOf("error" to e.message)))

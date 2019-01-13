@@ -23,7 +23,7 @@ class BoardTest {
     @Test
     fun `valid board`() {
         val b = Board("abcd efgh ijkl mnop")
-        assertEquals("abcdefghijklmnop", b.board)
+        assertEquals("abcdefghijklmnop", b.source)
     }
 
 }
