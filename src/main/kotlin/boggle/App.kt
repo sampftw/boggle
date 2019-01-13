@@ -1,6 +1,7 @@
 package boggle
 
 import boggle.solver.NaiveSolver
+import boggle.solver.TrieSolver
 import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.*
 import io.ktor.features.*
@@ -43,10 +44,10 @@ fun Application.main() {
             val post = call.receiveParameters()
             try {
                 val board = Board(post["board"])
-                val solver = NaiveSolver(dictionary)
+                val solver = TrieSolver(dictionary)
                 solver.solve(board)
                 val answers = solver.results.sorted()
-                call.respond(FreeMarkerContent("solved.ftl", mapOf("board" to board, "answers" to answers)))
+                call.respond(FreeMarkerContent("solved.ftl", mapOf("board" to board, "answers" to answers, "answerCount" to answers.size)))
             } catch (e: Exception) {
                 call.respond(FreeMarkerContent("index.ftl", mapOf("error" to e.message)))
             }

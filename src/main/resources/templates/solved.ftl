@@ -25,7 +25,7 @@
 </div>
 </div>
 
-<p>Answers:</p>
+<p>Answers: (Found ${answerCount})</p>
 <div>
 <#list answers as answer>
 <p>${answer}</p>

@@ -11,10 +11,6 @@ body {
     margin: 0 auto 0 0;
 }
 
-.logo {
-    align-self: center;
-}
-
 #board {
     border: 5px solid #FFCA08;
     background-color: #398BD4;
@@ -55,25 +51,3 @@ body {
    transform: translateY(-50%);
 }
 
-#word-submit {
-    margin: 15px 0;
-    display: flex;
-    justify-content: space-between;
-}
-
-#score-table {
-    align-self: left;
-    border: 5px solid #FFCA08;
-    border-collapse: collapse;
-    text-align: left;
-}
-
-#score-table td, #score-table th {
-    border: 5px solid #FFCA08;
-    background-color: white;
-    padding: 5px;
-}
-
-#score-table tr#footer td {
-    background-color: #ACCEEC;
-}
