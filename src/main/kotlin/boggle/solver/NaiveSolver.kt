@@ -27,14 +27,10 @@ class NaiveSolver(val dictionary: Dictionary, val minimumLength: Int = 3, val ma
         if (plausible(board, x, y, visited) && str.length <= maximumLength) {
             // next step in the path
             // there are 8 possible directions
-            val soFar = if (board.board[x][y] == "q") {
-                str + "qu"
-            } else {
-                str + board.board[x][y]
-            }
+            val soFar = str + board.board[x][y]
 
-            if (legal(soFar) && dictionary.words.contains(soFar.toLowerCase())) {
-                results.add(soFar)
+            if (legal(soFar) && dictionary.words.contains(soFar)) {
+                results.add(dictionary.recreateQ(soFar))
             }
 
             // up

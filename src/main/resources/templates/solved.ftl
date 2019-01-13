@@ -9,13 +9,13 @@
 <div>Solved ${board.source}</div>
 <div>
 <form action="/solve" method="post" enctype="application/x-www-form-urlencoded">
-    <div>Board:</div>
-    <div><input type="text" name="board" /></div>
-    <div><input type="submit" value="Solve another" /></div>
+    <div><input type="text" name="board" />
+    <input type="submit" value="Solve" /></div>
 </form>
+<div class="note">Note: For "Qu", just type "Q"</div>
 </div>
 <div id="board">
-<#list board.board as row>
+<#list board.display_board as row>
   <div class="row">
     <#list row as l>
       <div class="boggle"><span>${l}</span></div>
@@ -23,13 +23,13 @@
   </div>
 </#list>
 </div>
-</div>
 
 <p>Answers: (Found ${answerCount})</p>
-<div>
+<div class="answers">
 <#list answers as answer>
 <p>${answer}</p>
 </#list>
+</div>
 </div>
 </body>
 </html>

@@ -20,9 +20,10 @@ fun Application.main() {
     install(FreeMarker) {
         templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
     }
-    val dictionaryName = environment.config.property("dictionary.name")
+    val dictionaryName = environment.config.property("boggle.dictionary_name")
     val dictionary: Dictionary = ClasspathDictionary(dictionaryName.getString())
 
+    val boardWidth = environment.config.property("boggle.board_width").getString().toInt()
 
     install(DefaultHeaders)
     install(CallLogging)
@@ -43,7 +44,7 @@ fun Application.main() {
         post( "/solve") {
             val post = call.receiveParameters()
             try {
-                val board = Board(post["board"])
+                val board = Board(post["board"], boardWidth)
                 val solver = TrieSolver(dictionary)
                 solver.solve(board)
                 val answers = solver.results.sorted()

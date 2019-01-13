@@ -12,5 +12,6 @@ Welcome to boggle.
     <div><input type="text" name="board" /></div>
     <div><input type="submit" value="Solve" /></div>
 </form>
+<div class="note">Note: For "Qu", just type "Q"</div>
 </body>
 </html>

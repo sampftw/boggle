@@ -48,7 +48,6 @@ class TrieSolverTest {
     }
 
     @Test
-    @Ignore("Trie doesn't handle Qu yet")
     fun `solve with q`() {
         val b = Board("ab qd", 2)
         val dictionary = SimpleDictionary(listOf("qud", "aqu"))

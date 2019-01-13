@@ -37,7 +37,7 @@ class TrieSolver(val dictionary: Dictionary, val minimumLength: Int = 3, val max
 
         // if we found word in trie / dictionary
         if (root.endOfWord && legal(str)) {
-            results.add(str)
+            results.add(dictionary.recreateQ(str))
         }
 
         if (plausible(board, x, y, visited)) {

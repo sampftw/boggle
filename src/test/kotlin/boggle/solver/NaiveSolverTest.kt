@@ -3,12 +3,14 @@ package boggle.solver
 import boggle.Board
 import boggle.ClasspathDictionary
 import boggle.SimpleDictionary
+import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertEquals
 
 class NaiveSolverTest {
 
     @Test
+    @Ignore("too slow")
     fun `solve 3x3 with real dictionary`() {
         val b = Board("wow ice nam", 3)
         val dictionary = ClasspathDictionary("dictionaries/sowpods.txt")
