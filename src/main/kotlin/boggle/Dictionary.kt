@@ -1,6 +1,10 @@
 package boggle
 
 import java.io.File
+import java.io.InputStreamReader
+import java.io.BufferedReader
+
+
 
 abstract class Dictionary {
 
@@ -36,11 +40,13 @@ class ClasspathDictionary(val sourceFile: String) : Dictionary() {
     override val words: List<String>
 
     init {
-        val resource = ClassLoader.getSystemResource(sourceFile)
+        val resource = ClassLoader.getSystemResourceAsStream(sourceFile)
         if (resource == null) {
             throw RuntimeException("Unable to load dictionary.")
         }
-        words = File(resource.file).readLines().filter { !hasNakedQ(it) }.map { sanitizeQ(it) }
+        val reader = BufferedReader(InputStreamReader(resource))
+        words = reader.readLines().filter { !hasNakedQ(it) }.map { sanitizeQ(it) }
+        reader.close()
     }
 
 }
