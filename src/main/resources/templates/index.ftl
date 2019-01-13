@@ -9,8 +9,8 @@
 Welcome to boggle.
 <form action="/solve" method="post" enctype="application/x-www-form-urlencoded">
     <div>Board:</div>
-    <div><input type="text" name="board" /></div>
-    <div><input type="submit" value="Solve" /></div>
+    <div><input type="text" name="board" value="qickeenpabcdefgh"/></div>
+    <div><input type="submit" value="Solve"/></div>
 </form>
 <div class="note">Note: For "Qu", just type "Q"</div>
 </body>
