@@ -7,7 +7,7 @@ import boggle.trie.TrieNode
 import java.util.HashMap
 
 
-class TrieSolver(val dictionary: Dictionary, val minimumLength: Int = 3, val maximumLength: Int = 8) : Solver {
+class TrieSolver(val dictionary: Dictionary, val minimumLength: Int = 3) : Solver {
 
     override var results: MutableSet<String> = mutableSetOf()
     private val trie = Trie()
@@ -95,7 +95,7 @@ class TrieSolver(val dictionary: Dictionary, val minimumLength: Int = 3, val max
     }
 
     private fun legal(str: String): Boolean {
-        return str.length in minimumLength..maximumLength
+        return str.length >= minimumLength
     }
 
     private fun visit(visited: Int, x: Int, y: Int): Int {
